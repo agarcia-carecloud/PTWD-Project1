@@ -5,6 +5,15 @@ class Player extends Component {
         this.strength = strength;
     }
 
+    shoot() {
+        document.addEventListener('keydown', event => {
+            if (event.keyCode === 32) {
+                console.log('Buster shot!');
+            }
+        })
+    }
+
+    //could I roll this into the shoot method? Attack should only trigger if it hits an enemy. 
     attack() {
         return this.strength;
     }
@@ -38,8 +47,6 @@ class Player extends Component {
                 case 83:
                     if (this.y < 500 - this.height) this.y += this.height;
                     break;
-                default:
-                    console.log(`I can't go that way!`);
             }
         });
     }

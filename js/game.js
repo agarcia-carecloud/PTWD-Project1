@@ -3,17 +3,20 @@ class Game {
         this.myCanvas = undefined;
         this.ctx = undefined;
         this.megaman = new Player(this, 0, 200, 100, 100);
-        this.enemies = new Component(this, 800, 200, 60, 75);
+        this.enemy1 = new Enemy(this, 800, 200, 60, 75);
+        this.enemy2 = new Enemy(this, 900, 300, 60, 75);
         this.score = 0;
     }
 
     init() {
-        console.log('called');
         this.myCanvas = document.querySelector('#my-canvas');
         this.ctx = this.myCanvas.getContext('2d');
         this.drawBackground();
         this.drawCharacters();
         this.megaman.move();
+        this.megaman.shoot();
+        this.enemy1.randomMove();
+        this.enemy2.randomMove();
         const interval = setInterval(() => {
             this.clear();
             this.drawBackground();
@@ -28,7 +31,7 @@ class Game {
 
 
     drawBackground() {
-        this.ctx.fillStyle = 'pink';
+        this.ctx.fillStyle = 'yellow';
         //background                          1000, 500
         this.ctx.fillRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
@@ -56,11 +59,12 @@ class Game {
     }
 
     drawCharacters() {
-        this.enemies.drawComponent('/images/sword-enemy.png');
+        this.enemy1.drawComponent('/images/sword-enemy.png');
+        this.enemy2.drawComponent('/images/sword-enemy.png');
         this.megaman.drawComponent('/images/megaman.png');
     }
 
-    gameOver() {
+    gameOver() { //game over state not implemented yet
         this.clear();
         this.drawBackground();
         this.ctx.font = '70px Arial';

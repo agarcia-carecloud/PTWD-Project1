@@ -9,12 +9,11 @@ class Component {
     }
 
     drawComponent(imgSource) {
-        console.log(imgSource);
         const theCtx = this.game.ctx;
         this.img.src = imgSource;
         theCtx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
-    //collision detection code is currently not in use
+    //collision detection code not implemented yet, no obstacles to avoid
     getLeft() {
         return this.x;
     }

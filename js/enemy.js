@@ -14,30 +14,57 @@ class Enemy extends Player {
         } else return `damage should be deducted from health.`
     }
 
+
     randomMove() {
 
-        //REMINDER to wrap in setInterval to delay moving between positions. 
 
-        /* declare a variable to store the current position of an enemy in the movement grid (2 columns, 3 rows. )
-        
+        setInterval(() => {
+            let newX = Math.round(Math.random() * 2);
+            let newY = Math.round(Math.random() * 3);
+            let validPos = true;
+            console.log(validPos)
+            switch (newX) {
+                case 1:
+                    newX = 800;
+                    break;
+                case 2:
+                    newX = 900;
+                    break;
 
-        How do I assign a value to each position of the movement grid? A nested array?
-            
-        Then, use Math.random to select a different position in the grid to move to. 
-        
-        Create a conditional statement to check if any other enemies are already in that position. If true, use recursive function to check for another free space on the grid. */
+            }
 
-        let grid = [
-            [this.x, this.y, this.x + 100, this.y],
-            [this.x, this.y - 100, this.x + 100, this.y - 100],
-            [this.x, this.y - 200, this.x + 100, this.y - 200]
-        ]
+            switch (newY) {
+                case 1:
+                    newY = 200;
+                    break;
+                case 2:
+                    newY = 300;
+                    break;
+                case 3:
+                    newY = 400;
+                    break;
+            }
+            if (myGame.enemy1.x === newX && myGame.enemy1.y === newY) {
+                validPos = false;
+            }
 
-        let enemyPosX = grid[0][0];
-        let enemyPosY = grid[0][1];
-        console.log(enemyPosX, enemyPosY)
+            if (myGame.enemy2.x === newX && myGame.enemy2.y === newY) {
+                validPos = false;
+            }
 
+            if (validPos) {
+                this.x = newX;
+                this.y = newY;
+                console.log(this.x, this.y)
+            } else {
+                console.log(`didn't move X:${newX} Y:${newY}`);
+                this.randomMove();
+            }
+        }, 1000);
 
-
+        /*  [800,200],[900,200]
+            [800,300],[900,300]
+            [800,400],[900,400]
+            */
     }
 }

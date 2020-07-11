@@ -5,10 +5,12 @@ class Player extends Component {
         this.strength = strength;
     }
 
-    shoot() {
+    shoot() { //method to generate a bullet every time the player presses the shoot button
         document.addEventListener('keydown', event => {
             if (event.keyCode === 32) {
-                console.log('Buster shot!');
+                let bullet = new Component(this.x + this.width, this.y - this.height / 2)
+                bullet.drawComponent(`../images/bullet.png`)
+                console.log('Buster shot!'); //check that method is called successfully.
             }
         })
     }

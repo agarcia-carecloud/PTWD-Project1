@@ -6,6 +6,11 @@ class Game {
         this.enemy1 = new Enemy(this, 800, 200, 60, 75);
         this.enemy2 = new Enemy(this, 900, 300, 60, 75);
         this.score = 0;
+        this.grid = [
+            [0, 0],
+            [0, 0],
+            [0, 0]
+        ]
     }
 
     init() {

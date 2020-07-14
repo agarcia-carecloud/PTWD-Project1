@@ -1,10 +1,16 @@
 class Enemy extends Player {
     constructor(game, x, y, width, height, health, strength, position) {
         super(game, x, y, width, height, health, strength)
+        this.health = 30;
+        this.strength = 5;
     }
 
-    attack() {
-        return this.strength;
+    shoot() {
+        if (successfulMoves === 3) {
+            successfulMoves = 0;
+
+        }
+
     }
 
     takeDamage(damage) {
@@ -16,7 +22,7 @@ class Enemy extends Player {
 
 
     randomMove() {
-
+        let successfulMoves = 0;
 
         setInterval(() => {
             let newX;
@@ -60,7 +66,9 @@ class Enemy extends Player {
             this.x = newX;
             this.y = newY;
             console.log(this.x, this.y)
-        }, 2000);
+            successfulMoves++;
+            console.log(successfulMoves)
+        }, 1500);
 
         /*  [800,200],[900,200]
             [800,300],[900,300]

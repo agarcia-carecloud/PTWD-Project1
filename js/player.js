@@ -1,20 +1,20 @@
 class Player extends Component {
     constructor(game, x, y, width, height, health, strength) {
         super(game, x, y, width, height);
-        this.health = health;
-        this.strength = strength;
+        this.health = 50;
+        this.strength = 10;
+
     }
 
     shoot() { //method to generate a bullet every time the player presses the shoot button
-        document.addEventListener('keydown', event => {
-            if (event.keyCode === 32) {
-                let bullet = new Component(this.x + this.width, this.y - this.height / 2)
-                bullet.drawComponent(`../images/bullet.png`)
-                console.log('Buster shot!'); //check that method is called successfully.
-            }
-        })
+        const bullet = new Component(this.game, this.x + this.width, this.y + (this.height / 4.5), 50, 50);
+        this.game.playerBullets.push(bullet);
+        console.log('Buster shot!'); //check that method is called successfully.
+
     }
 
+
+    //Code not implemented yet
     //could I roll this into the shoot method? Attack should only trigger if it hits an enemy. 
     attack() {
         return this.strength;
@@ -27,7 +27,7 @@ class Player extends Component {
         } else return `damage should be deducted from health.`
     }
 
-    move() { //didnt use nested arrays, consider refactoring this later
+    controls() { //should I refactor this?
         document.addEventListener('keydown', event => {
             event.preventDefault();
             switch (event.keyCode) {
@@ -48,6 +48,9 @@ class Player extends Component {
                 case 40:
                 case 83:
                     if (this.y < 500 - this.height) this.y += this.height;
+                    break;
+                case 32:
+                    this.shoot();
                     break;
             }
         });

@@ -37,7 +37,8 @@ class Game {
             this.drawBackground();
             this.drawCharacters();
 
-            if (this.megaman.didCollide(this.enemyBullets)) {
+            //this code works but its firing errors, not sure what that's about. Debug later
+            if (this.megaman.didCollide(this.enemyBullets[1]) || this.megaman.didCollide(this.enemyBullets[2])) {
                 console.log('collision');
                 clearInterval(interval);
                 this.gameOver();

@@ -1,15 +1,14 @@
 class Enemy extends Player {
-    constructor(game, x, y, width, height, health, strength, position) {
+    constructor(game, x, y, width, height, health, strength) {
         super(game, x, y, width, height, health, strength)
         this.health = 30;
         this.strength = 5;
     }
 
     shoot() {
-        if (successfulMoves === 3) {
-            successfulMoves = 0;
-
-        }
+        console.log('enemy firing!')
+        const enemyBullet = new Component(this.game, this.x, this.y, 50, 50);
+        this.game.enemyBullets.push(enemyBullet);
 
     }
 
@@ -22,6 +21,7 @@ class Enemy extends Player {
 
 
     randomMove() {
+
         let successfulMoves = 0;
 
         setInterval(() => {
@@ -29,9 +29,9 @@ class Enemy extends Player {
             let newY;
             do {
                 newX = Math.floor(Math.random() * 2);
-                console.log(newX)
+                // console.log(newX)
                 newY = Math.floor(Math.random() * 3);
-                console.log(newY)
+                // console.log(newY)
             } while (this.game.grid[newX][newY] === 1)
 
             this.game.grid[newX][newY] = 1;
@@ -65,10 +65,14 @@ class Enemy extends Player {
             }
             this.x = newX;
             this.y = newY;
-            console.log(this.x, this.y)
+            // console.log(this.x, this.y)
             successfulMoves++;
-            console.log(successfulMoves)
-        }, 1500);
+            console.log(`an enemy has moved successfully ${successfulMoves} times`)
+            if (successfulMoves === 4) {
+                successfulMoves = 0;
+                this.shoot();
+            }
+        }, 800);
 
         /*  [800,200],[900,200]
             [800,300],[900,300]

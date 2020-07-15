@@ -19,15 +19,15 @@ class Component {
     }
 
     getRight() {
-        return this.x + this.width - 30;
+        return this.x + this.width;
     }
 
     getTop() {
-        return this.y + 30;
+        return this.y;
     }
 
     getBottom() {
-        return this.y + this.height - 50;
+        return this.y + this.height;
     }
 
     didCollide(otherComp) {
@@ -38,7 +38,6 @@ class Component {
             this.getTop() <= otherComp.y + otherComp.height
         ) {
             return true;
-        }
-        return false;
+        } else return false;
     }
 }

@@ -7,9 +7,10 @@ class Game {
         this.enemy2 = new Enemy(this, 900, 300, 60, 75);
         // this.playerBullet = new Component(this, this.megaman.x + this.megaman.width, this.megaman.y + this.megaman.height / 4, 50, 50);
         // this.enemyOneBullet = new Component(this, this.enemy1.x + this.enemy1.width, this.enemy1.y + this.enemy1.height / 4, 50, 50);
-        // this.enemyTwoBullet = new Component(this, this.enemy2.x + this.enemy2.width, this.enemy2.y + this.enemy2.height / 4, 50, 50);
+        // this.enemyTwoBullet = new Component(this, this.enemy2.x + this.enemy2.width, this.enemy2.y + this.enemy2.height / 4, 50, 50);  
         this.score = 0;
         this.playerBullets = [];
+        this.enemyBullets = [];
         this.grid = [
             [0, 0],
             [0, 0],
@@ -35,6 +36,12 @@ class Game {
             this.clear();
             this.drawBackground();
             this.drawCharacters();
+
+            if (this.megaman.didCollide(this.enemyBullets)) {
+                console.log('collision');
+                clearInterval(interval);
+                this.gameOver();
+            }
 
         }, 1000 / 60);
     }
@@ -86,6 +93,13 @@ class Game {
                 this.playerBullets.splice(i, 1)
             }
             bullet.x += 5;
+        })
+        this.enemyBullets.forEach((enemyBullet, i) => {
+            enemyBullet.drawComponent('/images/bullet-enemy.png');
+            if (enemyBullet.x < -50) {
+                this.enemyBullets.splice(i, 1)
+            }
+            enemyBullet.x -= 5;
         })
     }
 

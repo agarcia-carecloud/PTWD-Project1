@@ -1,8 +1,7 @@
 class Player extends Component {
-    constructor(game, x, y, width, height, health, strength) {
+    constructor(game, x, y, width, height) {
         super(game, x, y, width, height);
-        this.health = 50;
-        this.strength = 10;
+        this.lives = 3;
 
     }
 
@@ -16,15 +15,19 @@ class Player extends Component {
 
     //Code not implemented yet
     //could I roll this into the shoot method? Attack should only trigger if it hits an enemy. 
-    attack() {
-        return this.strength;
+    onHit() {
+
+
+
+        return `Take that!`
     }
 
-    takeDamage(damage) {
-        this.health -= damage;
-        if (this.health <= 0) {
-            return `something died.`
-        } else return `damage should be deducted from health.`
+    takeDamage() {
+        this.lives -= 1;
+        if (this.lives <= 0) {
+
+            this.game.gameOver();
+        } else return `Ouch!`
     }
 
     controls() { //should I refactor this?
@@ -50,7 +53,9 @@ class Player extends Component {
                     if (this.y < 500 - this.height) this.y += this.height;
                     break;
                 case 32:
-                    this.shoot();
+                    if (this.game.playerBullets.length < 3) {
+                        this.shoot();
+                    } else console.log(`reloading!`)
                     break;
             }
         });

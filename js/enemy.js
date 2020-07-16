@@ -1,8 +1,7 @@
 class Enemy extends Player {
-    constructor(game, x, y, width, height, health, strength) {
-        super(game, x, y, width, height, health, strength)
-        this.health = 30;
-        this.strength = 5;
+    constructor(game, x, y, width, height) {
+        super(game, x, y, width, height)
+        this.lives = 5;
     }
 
     shoot() {
@@ -12,11 +11,11 @@ class Enemy extends Player {
 
     }
 
-    takeDamage(damage) {
-        this.health -= damage;
-        if (this.health <= 0) {
-            return `something died.`
-        } else return `damage should be deducted from health.`
+    takeDamage() {
+        this.lives -= 1;
+        if (this.lives <= 0) {
+            return `Enemy down!`
+        } else return `Enemy is hurt!`
     }
 
 

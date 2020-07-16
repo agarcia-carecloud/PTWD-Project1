@@ -38,11 +38,36 @@ class Game {
             this.drawCharacters();
 
             //this code works but its firing errors, not sure what that's about. Debug later
+            //UPDATE: errors are causing projectiles to sometimes not hit the player correctly. Will need to be fixed, its ignoring lives.
             if (this.megaman.didCollide(this.enemyBullets[1]) || this.megaman.didCollide(this.enemyBullets[2])) {
-                console.log('collision');
-                clearInterval(interval);
-                this.gameOver();
+                this.megaman.lives--;
+                if (this.megaman.lives <= 0) {
+                    clearInterval(interval);
+                    this.gameOver();
+                } else console.log(`Megaman has ${this.megaman.lives} lives left!`)
+
             }
+
+            if (this.enemy1.didCollide(this.playerBullets)) {
+                this.enemy1.lives--;
+                if (this.enemy1.lives <= 0) {
+                    this.ctx.clearRect(this.enemy1.x, this.enemy1.y, this.enemy1.width, this.enemy1.height)
+                } else console.log(`Enemy1 has ${this.enemy1.lives} lives left!`)
+            }
+
+            if (this.enemy2.didCollide(this.playerBullets)) {
+                this.enemy2.lives--;
+                if (this.enemy2.lives <= 0) {
+                    this.ctx.clearRect(this.enemy2.x, this.enemy2.y, this.enemy2.width, this.enemy2.height)
+                } else console.log(`Enemy2 has ${this.enemy2.lives} lives left!`)
+            }
+
+            //this code uses the array.every method but idk if I can even use this for what I need? research more.
+            // if (this.megaman.didCollide(this.enemyBullets.every())) {
+            //     console.log('collision');
+            //     clearInterval(interval);
+            //     this.gameOver();
+            // }
 
         }, 1000 / 60);
     }
@@ -93,14 +118,14 @@ class Game {
             if (bullet.x > this.myCanvas.width) {
                 this.playerBullets.splice(i, 1)
             }
-            bullet.x += 5;
+            bullet.x += 7;
         })
         this.enemyBullets.forEach((enemyBullet, i) => {
             enemyBullet.drawComponent('/images/bullet-enemy.png');
             if (enemyBullet.x < -50) {
                 this.enemyBullets.splice(i, 1)
             }
-            enemyBullet.x -= 5;
+            enemyBullet.x -= 7;
         })
     }
 

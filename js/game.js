@@ -38,6 +38,7 @@ class Game {
             this.enemyBullets.forEach((ele) => {
                 if (this.megaman.didCollide(ele)) {
                     this.enemyBullets.splice(ele, 1)
+                    this.ctx.clearRect(this.megaman.x, this.megaman.y, this.megaman.width, this.megaman.height);
                     this.megaman.lives--;
                     console.log(`Megaman has ${this.megaman.lives} Lives left`)
                     if (!this.megaman.lives) {
@@ -46,26 +47,37 @@ class Game {
                     }
                 }
             })
-            // this.enemyTwoBullets.forEach((ele) => {
-            //     if (this.megaman.didCollide(ele)) {
-            //         clearInterval(interval);
-            //         this.gameOver();
-            //     }
-            // })
 
             //enemy hit detection checks.
             this.playerBullets.forEach((ele) => {
                 if (this.enemy1.didCollide(ele)) {
-                    this.enemy1.isAlive = false;
+                    this.playerBullets.splice(ele, 1)
+                    this.ctx.clearRect(this.enemy1.x, this.enemy1.y, this.enemy1.width, this.enemy1.height);
+                    this.enemy1.lives--;
+                    if (!this.enemy1.lives) {
+                        this.ctx.clearRect(this.enemy1.x, this.enemy1.y, this.enemy1.width, this.enemy1.height);
+                        this.enemy1.isAlive = false;
+                    } else console.log(`enemyOne has ${this.enemy1} lives left`)
 
                 }
             })
 
             this.playerBullets.forEach((ele) => {
                 if (this.enemy2.didCollide(ele)) {
-                    this.enemy2.isAlive = false;
+                    this.playerBullets.splice(ele, 1)
+                    this.ctx.clearRect(this.enemy2.x, this.enemy2.y, this.enemy2.width, this.enemy2.height);
+                    this.enemy2.lives--;
+                    if (!this.enemy2.lives) {
+                        this.ctx.clearRect(this.enemy2.x, this.enemy2.y, this.enemy2.width, this.enemy2.height);
+                        this.enemy2.isAlive = false;
+                    } else console.log(`enemyTwo has ${this.enemy2} lives left`)
                 }
             })
+
+            if (!this.enemy1.lives && !this.enemy2.lives) {
+                clearInterval(interval);
+                this.gameWin();
+            }
         }, 1000 / 60);
     }
 
@@ -130,16 +142,16 @@ class Game {
             }
             enemyBullet.x -= 7;
         })
+    }
 
-        // if (this.EnemyTwoAlive) {
-        //     this.enemyTwoBullets.forEach((enemyTwoBullet, i) => {
-        //         enemyTwoBullet.drawComponent('/images/bullet-enemy.png');
-        //         if (enemyTwoBullet.x < -50) {
-        //             this.enemyTwoBullets.splice(i, 1)
-        //         }
-        //         enemyTwoBullet.x -= 7;
-        //     })
-        // }
+    gameWin() {
+        this.enemy1.isAlive = false;
+        this.enemy2.isAlive = false;
+        this.clear();
+        this.drawBackground();
+        this.ctx.font = '70px Arial';
+        this.ctx.fillStyle = 'white';
+        this.ctx.fillText('You Win!!!', 350, this.myCanvas.height / 2);
     }
 
     gameOver() {

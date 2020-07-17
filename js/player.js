@@ -36,7 +36,7 @@ class Player extends Component {
                     if (this.y < 500 - this.height) this.y += this.height;
                     break;
                 case 32:
-                    if (this.game.playerBullets.length < 3) {
+                    if (this.game.playerBullets.length < 2) {
                         this.shoot();
                     } else console.log(`reloading!`)
                     break;

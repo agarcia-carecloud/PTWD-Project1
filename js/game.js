@@ -3,12 +3,8 @@ class Game {
         this.myCanvas = undefined;
         this.ctx = undefined;
         this.megaman = new Player(this, 0, 200, 100, 100);
-        this.enemy1 = new Enemy(this, 800, 200, 60, 75);
-        this.enemy2 = new Enemy(this, 900, 300, 60, 75);
-        // this.playerBullet = new Component(this, this.megaman.x + this.megaman.width, this.megaman.y + this.megaman.height / 4, 50, 50);
-        // this.enemyOneBullet = new Component(this, this.enemy1.x + this.enemy1.width, this.enemy1.y + this.enemy1.height / 4, 50, 50);
-        // this.enemyTwoBullet = new Component(this, this.enemy2.x + this.enemy2.width, this.enemy2.y + this.enemy2.height / 4, 50, 50);  
-        this.score = 0;
+        this.enemy1 = new Enemy(this, 800, 200, 60, 75, 'enemyOne');
+        this.enemy2 = new Enemy(this, 900, 300, 60, 75, 'enemyTwo');
         this.playerBullets = [];
         this.enemyBullets = [];
         this.grid = [
@@ -32,43 +28,44 @@ class Game {
         this.megaman.controls();
         this.enemy1.randomMove();
         this.enemy2.randomMove();
+
         const interval = setInterval(() => {
             this.clear();
             this.drawBackground();
             this.drawCharacters();
 
-            //this code works but its firing errors, not sure what that's about. Debug later
-            //UPDATE: errors are causing projectiles to sometimes not hit the player correctly. Will need to be fixed, its ignoring lives.
-            if (this.megaman.didCollide(this.enemyBullets[1]) || this.megaman.didCollide(this.enemyBullets[2])) {
-                this.megaman.lives--;
-                if (this.megaman.lives <= 0) {
-                    clearInterval(interval);
-                    this.gameOver();
-                } else console.log(`Megaman has ${this.megaman.lives} lives left!`)
+            //Player hit detection checks.
+            this.enemyBullets.forEach((ele) => {
+                if (this.megaman.didCollide(ele)) {
+                    this.enemyBullets.splice(ele, 1)
+                    this.megaman.lives--;
+                    console.log(`Megaman has ${this.megaman.lives} Lives left`)
+                    if (!this.megaman.lives) {
+                        clearInterval(interval);
+                        this.gameOver();
+                    }
+                }
+            })
+            // this.enemyTwoBullets.forEach((ele) => {
+            //     if (this.megaman.didCollide(ele)) {
+            //         clearInterval(interval);
+            //         this.gameOver();
+            //     }
+            // })
 
-            }
+            //enemy hit detection checks.
+            this.playerBullets.forEach((ele) => {
+                if (this.enemy1.didCollide(ele)) {
+                    this.enemy1.isAlive = false;
 
-            if (this.enemy1.didCollide(this.playerBullets)) {
-                this.enemy1.lives--;
-                if (this.enemy1.lives <= 0) {
-                    this.ctx.clearRect(this.enemy1.x, this.enemy1.y, this.enemy1.width, this.enemy1.height)
-                } else console.log(`Enemy1 has ${this.enemy1.lives} lives left!`)
-            }
+                }
+            })
 
-            if (this.enemy2.didCollide(this.playerBullets)) {
-                this.enemy2.lives--;
-                if (this.enemy2.lives <= 0) {
-                    this.ctx.clearRect(this.enemy2.x, this.enemy2.y, this.enemy2.width, this.enemy2.height)
-                } else console.log(`Enemy2 has ${this.enemy2.lives} lives left!`)
-            }
-
-            //this code uses the array.every method but idk if I can even use this for what I need? research more.
-            // if (this.megaman.didCollide(this.enemyBullets.every())) {
-            //     console.log('collision');
-            //     clearInterval(interval);
-            //     this.gameOver();
-            // }
-
+            this.playerBullets.forEach((ele) => {
+                if (this.enemy2.didCollide(ele)) {
+                    this.enemy2.isAlive = false;
+                }
+            })
         }, 1000 / 60);
     }
 
@@ -86,7 +83,7 @@ class Game {
 
 
         //creating grid for characters(needs refactoring there has to be a way to wrap this in a loop)
-        this.ctx.fillStyle = 'navy'
+        this.ctx.fillStyle = 'lightblue'
         this.ctx.fillRect(0, 200, this.megaman.width * 2, this.megaman.height * 3)
         this.ctx.fillStyle = 'darkred'
         this.ctx.fillRect(800, 200, this.megaman.width * 2, this.megaman.height * 3)
@@ -110,16 +107,22 @@ class Game {
     }
     //drawing all game elements on the page (player, enemy, bullets fired)
     drawCharacters() {
-        this.enemy1.drawComponent('/images/sword-enemy.png');
-        this.enemy2.drawComponent('/images/sword-enemy.png');
+        if (this.enemy1.isAlive) {
+            this.enemy1.drawComponent('/images/sword-enemy-one.png');
+        }
+        if (this.enemy2.isAlive) {
+            this.enemy2.drawComponent('/images/sword-enemy-two.png');
+        }
         this.megaman.drawComponent('/images/megaman.png');
+
         this.playerBullets.forEach((bullet, i) => {
             bullet.drawComponent('/images/bullet.png');
             if (bullet.x > this.myCanvas.width) {
                 this.playerBullets.splice(i, 1)
             }
-            bullet.x += 7;
+            bullet.x += 10;
         })
+
         this.enemyBullets.forEach((enemyBullet, i) => {
             enemyBullet.drawComponent('/images/bullet-enemy.png');
             if (enemyBullet.x < -50) {
@@ -127,10 +130,21 @@ class Game {
             }
             enemyBullet.x -= 7;
         })
+
+        // if (this.EnemyTwoAlive) {
+        //     this.enemyTwoBullets.forEach((enemyTwoBullet, i) => {
+        //         enemyTwoBullet.drawComponent('/images/bullet-enemy.png');
+        //         if (enemyTwoBullet.x < -50) {
+        //             this.enemyTwoBullets.splice(i, 1)
+        //         }
+        //         enemyTwoBullet.x -= 7;
+        //     })
+        // }
     }
 
-
-    gameOver() { //game over state not implemented yet
+    gameOver() {
+        this.enemy1.isAlive = false;
+        this.enemy2.isAlive = false;
         this.clear();
         this.drawBackground();
         this.ctx.font = '70px Arial';

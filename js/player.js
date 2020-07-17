@@ -1,7 +1,8 @@
 class Player extends Component {
     constructor(game, x, y, width, height) {
         super(game, x, y, width, height);
-        this.lives = 3;
+        this.lives = 10;
+
 
     }
 
@@ -10,24 +11,6 @@ class Player extends Component {
         this.game.playerBullets.push(bullet);
         console.log('Buster shot!'); //check that method is called successfully.
 
-    }
-
-
-    //Code not implemented yet
-    //could I roll this into the shoot method? Attack should only trigger if it hits an enemy. 
-    onHit() {
-
-
-
-        return `Take that!`
-    }
-
-    takeDamage() {
-        this.lives -= 1;
-        if (this.lives <= 0) {
-
-            this.game.gameOver();
-        } else return `Ouch!`
     }
 
     controls() { //should I refactor this?

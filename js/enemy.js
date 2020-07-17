@@ -5,21 +5,14 @@ class Enemy extends Player {
         this.isAlive = true;
         this.lives = 5;
     }
-
+    //method to generate bullets fired by enemies
     shoot() {
         const enemyBullet = new Component(this.game, this.x, this.y, 50, 50);
         this.game.enemyBullets.push(enemyBullet);
 
     }
 
-    // shootTwo() {
-    //     if (myGame.enemyTwoAlive) {
-    //         const enemyTwoBullet = new Component(this.game, this.x, this.y, 50, 50);
-    //         this.game.enemyTwoBullets.push(enemyTwoBullet);
-    //     }
-    // }
-
-
+    //method to randomly generate positions for enemies to move to on their grid.
     randomMove() {
 
         let successfulMoves = 0;

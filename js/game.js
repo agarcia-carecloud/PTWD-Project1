@@ -57,11 +57,12 @@ class Game {
                     if (!this.enemy1.lives) {
                         this.ctx.clearRect(this.enemy1.x, this.enemy1.y, this.enemy1.width, this.enemy1.height);
                         this.enemy1.isAlive = false;
+                        this.enemy1.x = -500; //moving offscreen to remove from canvas
                     } else console.log(`enemyOne has ${this.enemy1} lives left`)
 
                 }
             })
-
+            //enemy hit detection checks.
             this.playerBullets.forEach((ele) => {
                 if (this.enemy2.didCollide(ele)) {
                     this.playerBullets.splice(ele, 1)
@@ -70,10 +71,11 @@ class Game {
                     if (!this.enemy2.lives) {
                         this.ctx.clearRect(this.enemy2.x, this.enemy2.y, this.enemy2.width, this.enemy2.height);
                         this.enemy2.isAlive = false;
+                        this.enemy2.x = -500; //moving offscreen to remove from canvas
                     } else console.log(`enemyTwo has ${this.enemy2} lives left`)
                 }
             })
-
+            //check if game is won
             if (!this.enemy1.lives && !this.enemy2.lives) {
                 clearInterval(interval);
                 this.gameWin();
@@ -81,7 +83,7 @@ class Game {
         }, 1000 / 60);
     }
 
-
+    //draw the background and movement grids
     drawBackground = () => {
         //setting the scrolling background image
         this.i -= 0.5;
@@ -94,7 +96,7 @@ class Game {
         this.ctx.drawImage(this.backgroundImg2, this.j, 0, this.myCanvas.width, this.myCanvas.height);
 
 
-        //creating grid for characters(needs refactoring there has to be a way to wrap this in a loop)
+        //creating grid for characters
         this.ctx.fillStyle = 'lightblue'
         this.ctx.fillRect(0, 200, this.megaman.width * 2, this.megaman.height * 3)
         this.ctx.fillStyle = 'darkred'

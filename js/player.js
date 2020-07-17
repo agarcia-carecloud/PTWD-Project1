@@ -6,14 +6,16 @@ class Player extends Component {
 
     }
 
-    shoot() { //method to generate a bullet every time the player presses the shoot button
+    //method to generate a bullet every time the player presses the shoot button
+    shoot() {
         const bullet = new Component(this.game, this.x + this.width, this.y + (this.height / 4.5), 50, 50);
         this.game.playerBullets.push(bullet);
         console.log('Buster shot!'); //check that method is called successfully.
 
     }
 
-    controls() { //should I refactor this?
+    //Method dictating movement options for player
+    controls() {
         document.addEventListener('keydown', event => {
             event.preventDefault();
             switch (event.keyCode) {

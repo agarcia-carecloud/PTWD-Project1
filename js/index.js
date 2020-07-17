@@ -1,3 +1,8 @@
-const myGame = new Game();
+const gettingStarted = document.getElementById("getting-started");
+const startBtn = document.getElementById('start-btn');
 
-myGame.init();
+startBtn.addEventListener('click', (event) => {
+    gettingStarted.style.display = 'none';
+    const myGame = new Game();
+    myGame.init();
+})

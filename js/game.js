@@ -154,6 +154,7 @@ class Game {
         this.ctx.font = '70px Arial';
         this.ctx.fillStyle = 'white';
         this.ctx.fillText('You Win!!!', 350, this.myCanvas.height / 2);
+        playAgain.style.display = 'block';
     }
 
     gameOver() {
@@ -164,6 +165,7 @@ class Game {
         this.ctx.font = '70px Arial';
         this.ctx.fillStyle = 'red';
         this.ctx.fillText('Game Over!!!', 300, this.myCanvas.height / 2);
+        playAgain.style.display = 'block';
     }
 
 }

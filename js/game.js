@@ -120,15 +120,15 @@ class Game {
     //drawing all game elements on the page (player, enemy, bullets fired)
     drawCharacters() {
         if (this.enemy1.isAlive) {
-            this.enemy1.drawComponent('/images/sword-enemy-one.png');
+            this.enemy1.drawComponent('./images/sword-enemy-one.png');
         }
         if (this.enemy2.isAlive) {
-            this.enemy2.drawComponent('/images/sword-enemy-two.png');
+            this.enemy2.drawComponent('./images/sword-enemy-two.png');
         }
-        this.megaman.drawComponent('/images/megaman.png');
+        this.megaman.drawComponent('./images/megaman.png');
 
         this.playerBullets.forEach((bullet, i) => {
-            bullet.drawComponent('/images/bullet.png');
+            bullet.drawComponent('./images/bullet.png');
             if (bullet.x > this.myCanvas.width) {
                 this.playerBullets.splice(i, 1)
             }
@@ -136,7 +136,7 @@ class Game {
         })
 
         this.enemyBullets.forEach((enemyBullet, i) => {
-            enemyBullet.drawComponent('/images/bullet-enemy.png');
+            enemyBullet.drawComponent('./images/bullet-enemy.png');
             if (enemyBullet.x < -50) {
                 this.enemyBullets.splice(i, 1)
             }

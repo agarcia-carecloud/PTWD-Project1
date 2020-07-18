@@ -65,7 +65,7 @@ class Enemy extends Player {
                 if (successfulMoves === 4) {
                     successfulMoves = 0;
                     this.shoot();
-                    console.log(`${this.name} shooting`)
+                    // console.log(`${this.name} shooting`)
                 }
             }
         }, 800);

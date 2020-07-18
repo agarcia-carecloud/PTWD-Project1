@@ -40,7 +40,7 @@ class Game {
                     this.enemyBullets.splice(ele, 1)
                     this.ctx.clearRect(this.megaman.x, this.megaman.y, this.megaman.width, this.megaman.height);
                     this.megaman.lives--;
-                    console.log(`Megaman has ${this.megaman.lives} Lives left`)
+                    // console.log(`Megaman has ${this.megaman.lives} Lives left`)
                     if (this.megaman.lives <= 0) {
                         clearInterval(interval);
                         this.gameOver();
@@ -58,7 +58,7 @@ class Game {
                         this.ctx.clearRect(this.enemy1.x, this.enemy1.y, this.enemy1.width, this.enemy1.height);
                         this.enemy1.isAlive = false;
                         this.enemy1.x = -500; //moving offscreen to remove from canvas
-                    } else console.log(`enemyOne has ${this.enemy1} lives left`)
+                    } // }else console.log(`enemyOne has ${this.enemy1} lives left`)
 
                 }
             })
@@ -72,7 +72,7 @@ class Game {
                         this.ctx.clearRect(this.enemy2.x, this.enemy2.y, this.enemy2.width, this.enemy2.height);
                         this.enemy2.isAlive = false;
                         this.enemy2.x = -500; //moving offscreen to remove from canvas
-                    } else console.log(`enemyTwo has ${this.enemy2} lives left`)
+                    } // } else console.log(`enemyTwo has ${this.enemy2} lives left`)
                 }
             })
             //check if game is won

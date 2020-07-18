@@ -41,7 +41,7 @@ class Game {
                     this.ctx.clearRect(this.megaman.x, this.megaman.y, this.megaman.width, this.megaman.height);
                     this.megaman.lives--;
                     console.log(`Megaman has ${this.megaman.lives} Lives left`)
-                    if (!this.megaman.lives) {
+                    if (this.megaman.lives <= 0) {
                         clearInterval(interval);
                         this.gameOver();
                     }
@@ -86,6 +86,8 @@ class Game {
     //draw the background and movement grids
     drawBackground = () => {
         //setting the scrolling background image
+
+
         this.i -= 0.5;
         if (this.i <= -this.myCanvas.width) this.i = this.myCanvas.width;
 
@@ -94,6 +96,7 @@ class Game {
 
         this.ctx.drawImage(this.backgroundImg, this.i, 0, this.myCanvas.width, this.myCanvas.height)
         this.ctx.drawImage(this.backgroundImg2, this.j, 0, this.myCanvas.width, this.myCanvas.height);
+
 
 
         //creating grid for characters
@@ -114,6 +117,10 @@ class Game {
         this.ctx.strokeRect(900, 300, this.megaman.width, this.megaman.height)
         this.ctx.strokeRect(800, 400, this.megaman.width, this.megaman.height)
         this.ctx.strokeRect(900, 400, this.megaman.width, this.megaman.height)
+
+        // this.ctx.fillStyle = 'white';
+        // this.ctx.font = '35px Arial';
+        // this.ctx.fillText = (`Lives Left: ${this.megaman.lives}`, 50, 90, 200)
     }
 
     clear() {
@@ -153,7 +160,7 @@ class Game {
         this.drawBackground();
         this.ctx.font = '70px Arial';
         this.ctx.fillStyle = 'white';
-        this.ctx.fillText('You Win!!!', 350, this.myCanvas.height / 2);
+        this.ctx.fillText('You Win!!!', 350, this.myCanvas.height / 4);
         playAgain.style.display = 'block';
     }
 
@@ -162,9 +169,9 @@ class Game {
         this.enemy2.isAlive = false;
         this.clear();
         this.drawBackground();
-        this.ctx.font = '70px Arial';
-        this.ctx.fillStyle = 'red';
-        this.ctx.fillText('Game Over!!!', 300, this.myCanvas.height / 2);
+        this.ctx.font = '60px Arial';
+        this.ctx.fillStyle = 'magenta';
+        this.ctx.fillText('Game Over!!!', 300, this.myCanvas.height / 4);
         playAgain.style.display = 'block';
     }
 

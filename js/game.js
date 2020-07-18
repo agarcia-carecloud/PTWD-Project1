@@ -171,7 +171,7 @@ class Game {
         this.drawBackground();
         this.ctx.font = '60px Arial';
         this.ctx.fillStyle = 'magenta';
-        this.ctx.fillText('Game Over!!!', 300, this.myCanvas.height / 4);
+        this.ctx.fillText('Game Over...', 300, this.myCanvas.height / 4);
         playAgain.style.display = 'block';
     }
 

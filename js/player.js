@@ -1,7 +1,7 @@
 class Player extends Component {
     constructor(game, x, y, width, height) {
         super(game, x, y, width, height);
-        this.lives = 5;
+        this.lives = 4;
 
 
     }

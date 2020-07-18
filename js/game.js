@@ -36,6 +36,9 @@ class Game {
             this.drawCharacters();
 
             //Player hit detection checks.
+
+            //NOTE: Known bug where EnemyTwo bullets deduct 2 lives from the player instead of 1 when it collides. Unable to identify root cause as this issue does not occur with EnemyOne. 
+
             this.enemyBullets.forEach((ele) => {
                 if (this.megaman.didCollide(ele)) {
                     this.enemyBullets.splice(ele, 1)

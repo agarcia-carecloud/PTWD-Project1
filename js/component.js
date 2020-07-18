@@ -8,6 +8,7 @@ class Component {
         this.img = new Image();
     }
 
+    //draws component based on imgSrc on the canvas
     drawComponent(imgSource) {
         const theCtx = this.game.ctx;
         this.img.src = imgSource;
@@ -30,19 +31,8 @@ class Component {
         return this.y + this.height - 30;
     }
 
+    //collision detection method used by all characters
     didCollide(otherComp) {
-        // const crossLeft = otherComp.x >= this.getLeft() && otherComp.x <= this.getRight();
-        // const crossRight =
-        //     otherComp.x + otherComp.width >= this.getLeft() && otherComp.x + otherComp.width <= this.getRight();
-        // const crossTop = otherComp.y <= this.getBottom() && otherComp.y >= this.getTop();
-
-        // const crossBottom =
-        //     otherComp.y + otherComp.height >= this.getTop() && otherComp.y + otherComp.height <= this.getBottom();
-
-        // if ((crossLeft || crossRight) && (crossBottom || crossTop)) {
-        //     return true;
-        // }
-        // return false;
         if (
             this.getRight() >= otherComp.x &&
             this.getLeft() <= otherComp.x + otherComp.width &&

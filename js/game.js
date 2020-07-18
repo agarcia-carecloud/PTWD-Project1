@@ -29,6 +29,7 @@ class Game {
         this.enemy1.randomMove();
         this.enemy2.randomMove();
 
+        //interval to redraw the canvas elements
         const interval = setInterval(() => {
             this.clear();
             this.drawBackground();
@@ -85,9 +86,8 @@ class Game {
 
     //draw the background and movement grids
     drawBackground = () => {
+
         //setting the scrolling background image
-
-
         this.i -= 0.5;
         if (this.i <= -this.myCanvas.width) this.i = this.myCanvas.width;
 
@@ -99,7 +99,7 @@ class Game {
 
 
 
-        //creating grid for characters
+        //drawing movement grid for characters on canvas
         this.ctx.fillStyle = 'lightblue'
         this.ctx.fillRect(0, 200, this.megaman.width * 2, this.megaman.height * 3)
         this.ctx.fillStyle = 'darkred'
@@ -136,20 +136,22 @@ class Game {
         }
         this.megaman.drawComponent('./images/megaman.png');
 
+        //clear fired bullets from playerBullets array after they are off canvas
         this.playerBullets.forEach((bullet, i) => {
             bullet.drawComponent('./images/bullet.png');
             if (bullet.x > this.myCanvas.width) {
                 this.playerBullets.splice(i, 1)
             }
-            bullet.x += 10;
+            bullet.x += 10; //moving bullets across canvas
         })
 
+        //clear fired bullets from enemyBullets array after they are off canvas
         this.enemyBullets.forEach((enemyBullet, i) => {
             enemyBullet.drawComponent('./images/bullet-enemy.png');
             if (enemyBullet.x < -50) {
                 this.enemyBullets.splice(i, 1)
             }
-            enemyBullet.x -= 7;
+            enemyBullet.x -= 7; //moving bullets across canvas
         })
     }
 

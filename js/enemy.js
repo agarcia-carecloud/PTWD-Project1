@@ -20,7 +20,7 @@ class Enemy extends Player {
         setInterval(() => {
             let newX;
             let newY;
-            if (this.isAlive) {
+            if (this.isAlive) { //stop running this code if enemies are not alive
                 do {
                     newX = Math.floor(Math.random() * 2);
                     // console.log(newX)
@@ -70,6 +70,7 @@ class Enemy extends Player {
             }
         }, 800);
 
+        // X/Ys of enemy grid for reference
         /*  [800,200],[900,200]
             [800,300],[900,300]
             [800,400],[900,400]
